@@ -1,8 +1,9 @@
 # moreAbstractLiveCoding
 Functions made on top of FoxDot to code cool live music more quickly and easily
 
+## Requirements
 
-## References
+- https://github.com/Qirky/FoxDot
 
 - https://github.com/lvm/build-supercollider
 

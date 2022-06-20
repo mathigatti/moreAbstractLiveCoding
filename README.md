@@ -10,4 +10,6 @@ Functions made on top of FoxDot to code cool live music more quickly and easily
 
 ## Usage example
 
-`python loader.py; flok-repl -H wss://flok.clic.cf -s yeasty-ivory-piranha-YjE3NTZh -t foxdot -N mathigatti`
+```bash
+python loader.py; flok-repl -H wss://flok.clic.cf -s yeasty-ivory-piranha-YjE3NTZh -t foxdot -N mathigatti
+```

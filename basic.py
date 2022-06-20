@@ -1,7 +1,7 @@
 import random
 
 ### preguntarle a musicos su proceso de composición a nivel abstracto y replicarlo en codigo
-### preguntarle a 
+### Ver cosas repetidas en sendCodigo
 
 def sonando():
     print(Clock.playing)
@@ -17,19 +17,6 @@ def escalas():
 
 def params(player):
     print(player.attr.keys())
-
-
-def bajo(melody=None):
-    b = random.choice([bass, sawbass, jbass, sawbass])
-    if melody is None:
-        return b([0])
-    else:
-        return b(melody)
-
-
-def bombo():
-    pass
-
 
 def ritmo_picante():
     pass
@@ -67,6 +54,5 @@ def mas_picante():
 - beats
 	'bits' + 'crush'
 '''
-
 
 # ['aeolian', 'altered', 'bebopDom', 'bebopDorian', 'bebopMaj', 'bebopMelMin', 'blues', 'chinese', 'chromatic', 'custom', 'default', 'diminished', 'dorian', 'dorian2', 'egyptian', 'freq', 'halfDim', 'halfWhole', 'harmonicMajor', 'harmonicMinor', 'hungarianMinor', 'indian', 'justMajor', 'justMinor', 'locrian', 'locrianMajor', 'lydian', 'lydianAug', 'lydianDom', 'lydianMinor', 'major', 'majorPentatonic', 'melMin5th', 'melodicMajor', 'melodicMinor', 'minMaj', 'minor', 'minorPentatonic', 'mixolydian', 'phrygian', 'prometheus', 'romanianMinor', 'susb9', 'wholeHalf', 'wholeTone', 'yu', 'zhi']

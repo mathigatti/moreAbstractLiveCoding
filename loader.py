@@ -8,5 +8,9 @@ for file in files:
         with open(file,'r') as f:
             text += "###################\n#" + file.upper() + "\n###################\n\n" + f.read()
 
-with open("/home/mathigatti/.local/lib/python3.8/site-packages/FoxDot/lib/Custom/startup.py",'w') as f:
+
+from FoxDot import FOXDOT_ROOT
+import os
+
+with open(os.path.join(FOXDOT_ROOT,"lib/Custom/startup.py"),'w') as f:
     f.write(text)

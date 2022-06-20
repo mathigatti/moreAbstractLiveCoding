@@ -23,3 +23,21 @@ def arpegio(notes, chord=(0, 2, 4)):
 
 def acorde(notes, chords=(0, 2, 4)):
     return [tuple([note+interval for interval in chord]) for note in notes]
+
+
+def increasePitch(player, increment=1):
+    player += increment
+
+def ipp(player, increment=1, times=4, interval=8):
+    start = startTime(interval)
+    increasePitch(player, increment)
+    if times > 0:
+        Clock.schedule(lambda: ipp(player, increment, times-1, interval), start+interval)
+
+def pac(self, increment=1, times=16, interval=1):
+    start = startTime(interval)
+    ipp(self,increment, times, interval)
+    Clock.schedule(lambda: increasePitch(self, int(-2/3*increment*times)), start+interval*times)
+    return self
+
+Player.pac = pac

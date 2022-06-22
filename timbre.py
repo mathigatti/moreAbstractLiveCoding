@@ -1,5 +1,5 @@
 
-# add 
+# add periodic effect
 def ape(player):
     if random.random() > 0.5:
         player.formant = var([random.randint(0, 10) for _ in range(3)], [16])
@@ -23,3 +23,4 @@ def ape(player):
 
 
 Player.ape = ape
+

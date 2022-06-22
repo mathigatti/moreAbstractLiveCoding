@@ -94,9 +94,9 @@ def abajoarriba(intervalo):
     Clock.future(intervalo, lambda: arriba())
 
 
-def once(self):
+def once(self, dur=1/16):
     ''' play sound once '''
-    self.dur = 1/16  # fast dur allows instant feedback
+    self.dur = dur  # fast dur allows instant feedback
     self.amp = var([1, 0], [self.dur, inf], start=Clock.now())
     return self
 

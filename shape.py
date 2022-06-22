@@ -93,6 +93,23 @@ def abajoarriba(intervalo):
     abajo()
     Clock.future(intervalo, lambda: arriba())
 
+from FoxDot import FOXDOT_ROOT
+
+from pydub import AudioSegment
+from os.path import join
+
+def longitud_en_audios(sample):
+    bpms = Clock.bpm
+    audio = AudioSegment.from_wav(join(FOXDOT_ROOT, "snd/_loop_", sample + ".wav"))
+    length_in_seconds = len(audio)/(1000)
+    return round(bpms*length_in_seconds/60)
+
+def loopm(path="foxdot", **kwargs):
+    duracion = longitud_en_audios(path)
+    if "dur" in kwargs:
+        return loop(path,**kwargs)
+    else:
+        return loop(path,var(P[:duracion],1), dur=[1], **kwargs) # Cargar sample entero y una sola vez
 
 def once(self, dur=1/16):
     ''' play sound once '''

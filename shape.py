@@ -93,9 +93,9 @@ def magia(dur=8, rate=1, sample="dont_follow_rules"):
 def enciendo(group):
     group.solo(0)
 
-def apagoenciendo(group, duration=16):
+def apagoenciendo(group, dur=16):
     group.solo()
-    Clock.future(duration,lambda : enciendo(group))
+    Clock.future(dur,lambda : enciendo(group))
 
 
 # Abajo/Arriba Silence Drums

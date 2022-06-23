@@ -74,7 +74,7 @@ def ambience(melody=None, change=False, **kwargs):
     else:
         return synth_generator(ambience_ps[0], melody=melody, dur=8, **kwargs)
 
-armonia_ps = [piano, rave, pasha, prophet, saw, star, spark, blip, arpy, nylon]
+armonia_ps = [piano, pasha, prophet, saw, star, spark, blip, arpy, nylon]
 random.shuffle(armonia_ps)
 
 def armonia(melody=None, change=False, **kwargs):

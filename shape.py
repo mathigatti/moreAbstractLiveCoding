@@ -41,14 +41,19 @@ def notalways(order=1, level=3, tt=var):
         pattern = [1, 0]
     return tt(pattern, 4**level)
 
+
 def intermitent(values, level=0.5, tt=var):
-    intervals = [int(c*level) for c in [28, 4, 32, 64, 128, 31, 1, 32]]
+    intermitent_values=[28, 4, 32, 64, 128, 31, 1, 32]
+    intervals = [int(c*level) for c in intermitent_values]
+    values = [random.choice(values) for _ in range(len(intermitent_values))]
     random.shuffle(intervals)
     return tt(values, intervals)
 
+
 # turn off sometimes
 def tos(self):
-    self.amp = intermitent([random.choice([0,1,1]) for _ in range(8)])
+    amp = float(self.amp)
+    self.amp = intermitent([0,amp,amp])
     return self
 
 Player.tos = tos

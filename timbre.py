@@ -15,8 +15,11 @@ def ape(player, spicy=False):
         player.room=intermitent([random.choice([0,0.6,0.7]) for _ in range(8)])
     if random.random() > 0.5:
         player.lpf = intermitent([random.choice([0,300,900,0,500]) for _ in range(8)])
-
+    if random.random() > 0.5:
+        player.amp = PWhite(0.7,1)*float(player.amp)
     if spicy:
+        if random.random() > 0.5:
+            player.pan=PWhite(-1,1)
         if random.random() > 0.5:
             player.formant = var([random.randint(0, 10) for _ in range(3)], [16])
         elif random.random() > 0.5:

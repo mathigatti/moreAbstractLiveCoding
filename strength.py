@@ -24,14 +24,17 @@ def changeAmp(rate, group=None):
                 print(help(group.players[i].amp))
 
 
-def fadeo(self, dur=32):
-    self.amp = linvar([1, 0], [dur, inf], start=now)
+def fadeo(self, dur=16):
+    self.amp = linvar([float(self.amp), 0], [dur, inf], start=now)
     return self
 
 Player.fadeo = fadeo
 
-def fadei(self, dur=32):
-    self.amp = linvar([0, 1], [dur, inf], start=now)
+def fadei(self, dur=16,amp=None):
+    if amp is not None:
+        self.amp = linvar([0, amp], [dur,inf], start=now)
+    else:
+        self.amp = linvar([0, float(self.amp)], [dur, inf], start=now)
     return self
 
 Player.fadei = fadei

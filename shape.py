@@ -1,4 +1,7 @@
 
+import random
+random.seed(None)
+
 def startTime(bpm):
     return Clock.mod(bpm) - 0.1
 
@@ -20,7 +23,6 @@ def changeDurFor(change, intervalo, group=None):
     changeDur(change, group=group)
     Clock.future(intervalo, lambda: changeDur(1/change, group=group))
 
-
 def progressiveChange(change, times, intervalo, group=None):
     changeDurFor(change, intervalo*times, group)
     Clock.future(intervalo, lambda: progressiveChange(
@@ -32,18 +34,24 @@ def spread(values, level=1, tt=var):
     return tt(values, [x*level for x in intervals])
 
 
-def intermitent(values, tt=var):
-    intervals = [14, 2, 7, 1, 8, 8, 28, 4]
-    random.shuffle(intervals)
-    return tt(values, intervals)
-
-
 def notalways(order=1, level=3, tt=var):
     if order == 1:
         pattern = [0, 1]
     else:
         pattern = [1, 0]
     return tt(pattern, 4**level)
+
+def intermitent(values, tt=var):
+    intervals = [28, 4, 32, 64, 128, 31, 1, 32]
+    random.shuffle(intervals)
+    return tt(values, intervals)
+
+# turn off sometimes
+def tos(self):
+    self.amp = intermitent([random.choice([0,1,1]) for _ in range(8)])
+    return self
+
+Player.tos = tos
 
 
 def unsolo(player, rate, stop=True):
@@ -76,6 +84,15 @@ def magia(dur=8, rate=1, sample="dont_follow_rules"):
     start = startTime(dur)
     Clock.schedule(lambda: solo_loco(start, dur, sample, rate), start)
 
+
+def enciendo(group):
+    group.solo(0)
+
+def apagoenciendo(group, duration=16):
+    group.solo()
+    Clock.future(duration,lambda : enciendo(group))
+
+
 # Abajo/Arriba Silence Drums
 
 
@@ -104,17 +121,16 @@ def longitud_en_audios(sample):
     length_in_seconds = len(audio)/(1000)
     return round(bpms*length_in_seconds/60)
 
-def loopm(path="foxdot", **kwargs):
+def loopm(path="foxdot", *args, **kwargs):
     duracion = longitud_en_audios(path)
-    if "dur" in kwargs:
-        return loop(path,**kwargs)
+    if len(args) > 0 or "dur" in kwargs:
+        return loop(path,*args, **kwargs)
     else:
-        return loop(path,var(P[:duracion],1), dur=[1], **kwargs) # Cargar sample entero y una sola vez
+        return loop(path,var(P[:duracion],1, start=now), dur=[1], **kwargs) # Cargar sample entero y una sola vez
 
 def once(self, dur=1/16):
     ''' play sound once '''
-    self.dur = dur  # fast dur allows instant feedback
-    self.amp = var([1, 0], [self.dur, inf], start=Clock.now())
+    self.amp = var([1, 0], [dur, inf], start=now)
     return self
 
 

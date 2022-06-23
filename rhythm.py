@@ -2,7 +2,10 @@
 import random
 random.seed(None)
 
-ritmos = [PSum(6, 4), PRand([0.5, 0.25])]
+def progressive(amplify1=1, amplify2=1):
+  return var(P[1,0.5,0.25]*amplify2,P[16,8,8]*amplify2)
+
+ritmos = [PSum(6, 4), PRand([0.5, 0.25]), progressive()]
 
 def kick(sample=3, **kwargs):
     if "sample" in kwargs:
@@ -14,7 +17,10 @@ def hihat(sample=3, **kwargs):
     if "dur" in kwargs:
         return play("-", **kwargs)
     else:
-        return play("-", dur=ritmos[-1], **kwargs)
+        return play("-", dur=ritmos[1], **kwargs)
+
+def snare(**kwargs):
+    return play(" " + random.choice(["o","O"]), sample=random.choice(range(4)), **kwargs)
 
 def clap(**kwargs):
     sample = random.choice(["*", "r", "k", "f"])
@@ -45,7 +51,10 @@ def ambience(melody=None, change=False, **kwargs):
     global ambience_ps
     if change:
         random.shuffle(ambience_ps)
-    return synth_generator(ambience_ps[0], melody=melody, **kwargs)
+    if "dur" in kwargs:
+        return synth_generator(ambience_ps[0], melody=melody, **kwargs)
+    else:
+        return synth_generator(ambience_ps[0], melody=melody, dur=8, **kwargs)
 
 armonia_ps = [piano, rave, pasha, prophet, saw, star, spark, blip, arpy, nylon]
 random.shuffle(armonia_ps)
@@ -84,3 +93,10 @@ def acusticom(melody=None, change=False, **kwargs):
     if change:
         random.shuffle(acusticom_ps)
     return synth_generator(acusticom_ps[0], melody=melody, **kwargs)
+
+def rise(i = None):
+    if i is None:
+        i = random.choice(range(1,6))
+    path = f"riser{i}"
+    return loopm(path).once(dur=2*longitud_en_audios(path))
+

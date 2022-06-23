@@ -22,3 +22,16 @@ def changeAmp(rate, group=None):
                 print("ERROR")
                 print(group.players[i].amp)
                 print(help(group.players[i].amp))
+
+
+def fadeo(self, dur=32):
+    self.amp = linvar([1, 0], [dur, inf], start=now)
+    return self
+
+Player.fadeo = fadeo
+
+def fadei(self, dur=32):
+    self.amp = linvar([0, 1], [dur, inf], start=now)
+    return self
+
+Player.fadei = fadei

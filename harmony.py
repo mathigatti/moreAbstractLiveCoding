@@ -24,7 +24,6 @@ def arpegio(notes, chord=(0, 2, 4)):
 def acorde(notes, chords=(0, 2, 4)):
     return [tuple([note+interval for interval in chord]) for note in notes]
 
-
 def increasePitch(player, increment=1):
     player += increment
 
@@ -34,6 +33,7 @@ def ipp(player, increment=1, times=4, interval=8):
     if times > 0:
         Clock.schedule(lambda: ipp(player, increment, times-1, interval), start+interval)
 
+# pitch ascendent change
 def pac(self, increment=1, times=16, interval=1):
     start = startTime(interval)
     ipp(self,increment, times, interval)
@@ -41,3 +41,6 @@ def pac(self, increment=1, times=16, interval=1):
     return self
 
 Player.pac = pac
+
+def un_pasito(pasos=2, length=32):
+  return PWalk(pasos)[:length]

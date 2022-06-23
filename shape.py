@@ -41,8 +41,8 @@ def notalways(order=1, level=3, tt=var):
         pattern = [1, 0]
     return tt(pattern, 4**level)
 
-def intermitent(values, tt=var):
-    intervals = [28, 4, 32, 64, 128, 31, 1, 32]
+def intermitent(values, level=0.5, tt=var):
+    intervals = [int(c*level) for c in [28, 4, 32, 64, 128, 31, 1, 32]]
     random.shuffle(intervals)
     return tt(values, intervals)
 

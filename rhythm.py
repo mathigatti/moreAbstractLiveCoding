@@ -5,29 +5,27 @@ random.seed(None)
 def progressive(amplify1=1, amplify2=1):
   return var(P[1,0.5,0.25]*amplify2,P[16,8,8]*amplify2)
 
-ritmos = [PSum(6, 4), PRand([0.5, 0.25]), progressive()]
+ritmos = [PSum(6, 8), PRand([0.5, 0.25]), PDur([3, 5], 8), PDur([2, 6], 8), PDur([1,7,3,5],8), progressive()]
 
-def kick(sample=3, **kwargs):
-    if "sample" in kwargs:
-        return play("X   ", **kwargs)
-    else:
-        return play("X   ", sample=sample, **kwargs)
+def kick(sample=3, dur=4, **kwargs):
+    return play("X", dur=dur,sample=sample, **kwargs)
 
-def hihat(sample=3, **kwargs):
-    if "dur" in kwargs:
-        return play("-", **kwargs)
-    else:
-        return play("-", dur=ritmos[1], **kwargs)
+def hihat(sample=3, dur=ritmos[1], **kwargs):
+    return play("-", dur=dur, sample=sample, **kwargs)
 
-def snare(**kwargs):
+def snare(echo=random.choice([0,P[0, var([0, [0.5, 0.25]], [14, 2])]]), **kwargs):
     return play(" " + random.choice(["o","O"]), sample=random.choice(range(4)), **kwargs)
 
-def clap(**kwargs):
-    sample = random.choice(["*", "r", "k", "f"])
-    if "dur" in kwargs:
-        return play(sample, **kwargs)
-    else:
-        return play(sample, dur=PDur(7,8), amp=PwRand([1,0],[4,1])[:16], sample=PRand(4)[:16], **kwargs)
+def clap(dur=PDur(7,8), amp=PwRand([1,0],[4,1])[:16], sample=PRand(4)[:16], **kwargs):
+    char = random.choice(["*", "r", "k", "f"])
+    return play(char, dur=dur, amp=amp, sample=sample, **kwargs)
+
+def ruidito():
+	options = [
+		play("/", rate=0.8, mix=0.15, room=0.7, dur=8, amp=notalways()*intermitent([0,1])),
+        play("b",dur=9,sus=0.2,rate=PRand([0.5,1,2]), mix=0.1,room=1, amp=notalways()*intermitent([0,1])) + (0,2,-1),
+	]
+	return random.choice(options)
 
 def synth_generator(b, melody=None, **kwargs):
     if melody is None:
@@ -100,3 +98,7 @@ def rise(i = None):
     path = f"riser{i}"
     return loopm(path).once(dur=2*longitud_en_audios(path))
 
+
+
+
+P[0, var([0, [0.5, 0.25]], [14, 2])]
